@@ -10,9 +10,10 @@ interface Props {
   todo: Todo;
   todoList: Todo[];
   setTodoList: React.Dispatch<React.SetStateAction<Todo[]>>;
+  setUpdateLists: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SingleTodo: React.FC<Props> = ({ index, todo, todoList, setTodoList }) => {
+const SingleTodo: React.FC<Props> = ({ index, todo, todoList, setTodoList, setUpdateLists }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
 
@@ -20,6 +21,8 @@ const SingleTodo: React.FC<Props> = ({ index, todo, todoList, setTodoList }) => 
     setTodoList(
       todoList.map((todo) => (todo.id === id ? { ...todo, isDone: !todo.isDone } : todo))
     );
+    // Flag the lists for update
+    setUpdateLists(true);
   };
 
   const handleDelete = (id: number) => {
